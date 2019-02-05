@@ -131,6 +131,9 @@ class MarkdownFormatTest: FileGeneratorTestCase() {
         }
     }
 
+    @Test fun functionOverloading() {
+        verifyMarkdownNode("functionOverloading")
+    }
     @Test fun javadocOrderedList() {
         verifyJavaMarkdownNodes("javadocOrderedList") { model ->
             model.members.single().members.filter { it.name == "Bar" }
