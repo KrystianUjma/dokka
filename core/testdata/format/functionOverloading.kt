@@ -1,3 +1,5 @@
+import java.math.BigDecimal
+
 class A<T>
 
 /**
