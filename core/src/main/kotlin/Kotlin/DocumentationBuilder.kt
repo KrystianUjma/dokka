@@ -394,6 +394,10 @@ class DocumentationBuilder
 
         val existingNode = refGraph.lookup(descriptor.signature())
         if (existingNode != null) {
+            if (existingNode.kind == NodeKind.Function && descriptor is FunctionDescriptor) {
+                appendChild(descriptor, RefKind.Member)
+                return
+            }
             if (existingNode.kind == NodeKind.TypeAlias && descriptor is ClassDescriptor
                     || existingNode.kind == NodeKind.Class && descriptor is TypeAliasDescriptor) {
                 val node = createGroupNode(descriptor.signature(), listOf(existingNode, descriptor.build()))
