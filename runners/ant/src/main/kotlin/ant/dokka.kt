@@ -80,7 +80,7 @@ class AntPassConfig(task: Task) : DokkaConfiguration.PassConfiguration {
         get() {
             val links = mutableListOf<DokkaConfiguration.ExternalDocumentationLink>()
             if (!noJdkLink)
-                links += DokkaConfiguration.ExternalDocumentationLink.Builder("http://docs.oracle.com/javase/$jdkVersion/docs/api/").build()
+                links += DokkaConfiguration.ExternalDocumentationLink.Builder("https://docs.oracle.com/javase/$jdkVersion/docs/api/").build()
 
             if (!noStdlibLink)
                 links += DokkaConfiguration.ExternalDocumentationLink.Builder("https://kotlinlang.org/api/latest/jvm/stdlib/").build()
@@ -171,6 +171,9 @@ class DokkaAntTask: Task(), DokkaConfiguration {
             for (sourceLink in passConfig.antSourceLinkDefinition) {
                 if (sourceLink.path == null) {
                     throw BuildException("'path' attribute of a <sourceLink> element is required")
+                }
+                if (sourceLink.path!!.contains("\\")) {
+                    throw BuildException("'dir' attribute of a <sourceLink> - incorrect value, only Unix based path allowed")
                 }
 
                 if (sourceLink.url == null) {
