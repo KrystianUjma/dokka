@@ -229,9 +229,8 @@ class JavadocParser(
             linkSignature != null -> {
                 val linkNode =
                         ContentNodeLazyLink(
-                                (tag.valueElement ?: linkElement).text,
-                                { -> refGraph.lookupOrWarn(linkSignature, logger) }
-                        )
+                                (tag.valueElement ?: linkElement).text
+                        ) { -> refGraph.lookupOrWarn(linkSignature!!, logger) }
                 linkNode.append(text)
                 linkNode
             }
